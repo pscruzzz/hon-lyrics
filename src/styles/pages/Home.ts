@@ -55,6 +55,7 @@ export const LeftSide = styled.div`
   }
 
   .glasses {
+    transform-style: preserve-3d;
     width: 100%;
     transition: linear 0.1s all;
     z-index: 8;

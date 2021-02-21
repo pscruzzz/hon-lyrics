@@ -41,8 +41,6 @@ const Home: React.FC<PropTypes> = ({ posts }) => {
     const card: any = document.querySelector('.imageContainerCard')
     const container = document.querySelector('.leftSideClass')
     const spanClass: any = document.querySelector('.spanClass')
-    const songs: any = document.querySelector('.songs')
-    const byHon: any = document.querySelector('.byHon')
 
     const first: any = document.querySelector('.first')
     const second: any = document.querySelector('.second')
@@ -51,7 +49,7 @@ const Home: React.FC<PropTypes> = ({ posts }) => {
     const glasses: any = document.querySelector('.glasses')
 
     container.addEventListener('mousemove', (e: any) => {
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 40
+      const xAxis = (window.innerWidth / 2.6 - e.pageX) / 40
       const yAxis = (window.innerHeight / 2 - e.pageY / 1.8) / 40
 
       card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
@@ -62,9 +60,6 @@ const Home: React.FC<PropTypes> = ({ posts }) => {
     container.addEventListener('mouseover', e => {
       spanClass.style.transform = 'translate3d(70%, -50%, 100px)'
 
-      songs.style.textShadow = '10px 10px 20px rgba(255, 255, 255, 0.1)'
-      byHon.style.textShadow = '10px 10px 20px rgba(255, 255, 255, 0.2)'
-
       first.style.backdropFilter = 'none'
       second.style.backdropFilter = 'none'
       third.style.backdropFilter = 'none'
@@ -72,6 +67,10 @@ const Home: React.FC<PropTypes> = ({ posts }) => {
       first.style.borderRadius = '2rem'
       second.style.borderRadius = '2rem'
       third.style.borderRadius = '2rem'
+
+      first.style.border = '1px solid transparent'
+      second.style.border = '1px solid transparent'
+      third.style.border = '1px solid transparent'
     })
 
     container.addEventListener('mouseleave', (e: any) => {
@@ -83,16 +82,14 @@ const Home: React.FC<PropTypes> = ({ posts }) => {
       third.style.backdropFilter = 'blur(5px)'
 
       spanClass.style.transform = 'translate3d(50%, -50%, 0px)'
-      songs.style.textShadow = 'none'
-      byHon.style.textShadow = 'none'
 
       first.style.borderRadius = '2rem 0rem 0rem 2rem'
       second.style.borderRadius = '0rem'
       third.style.borderRadius = '0rem 2rem 2rem 0rem'
 
-      /* first.style.transform = 'translate3d(0%, 0%, 0px)'
-      second.style.transform = 'translate3d(50%, 0%, 0px)'
-      third.style.transform = 'translate3d(0%, 0%, 0px)' */
+      first.style.border = 'none'
+      second.style.border = 'none'
+      third.style.border = 'none'
     })
   }, [])
 
