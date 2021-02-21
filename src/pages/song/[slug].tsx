@@ -13,7 +13,7 @@ interface ISongProps {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const songs = await client.query(
-    Prismic.Predicates.at('document.type', 'lyrics_post'),
+    Prismic.Predicates.at('document.type', 'song'),
     { orderings: '[my.post.date desc]' }
   )
 
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async context => {
 
   const strinfiedSlug = typeof slug === 'string' ? slug : slug[0]
 
-  const uniquePostPost = await client.getByUID('lyrics_post', strinfiedSlug, {
+  const uniquePostPost = await client.getByUID('song', strinfiedSlug, {
     lang: 'pt-br'
   })
 
