@@ -1,24 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { GetStaticProps } from 'next'
 
 import {
   Container,
   LeftSide,
   ImageContainer,
   Glass,
-  RightSide
+  RightSide,
+  SongTitle,
+  StyledImage
 } from '../styles/pages/Home'
 
 import Prismic from 'prismic-javascript'
 // import { RichText } from 'prismic-reactjs'
 import { client } from '../utils/prismic-configuration'
 import ApiSearchResponse from 'prismic-javascript/types/ApiSearchResponse'
-import { GetStaticProps } from 'next'
+
 import { FiChevronsRight } from 'react-icons/fi'
+
+import listeners from '../hooks/HomeListeners'
 
 interface PropTypes {
   posts: ApiSearchResponse
+  images: string[]
+  colors: string[]
 }
 
 export const getStaticProps: GetStaticProps = async context => {
@@ -27,74 +34,55 @@ export const getStaticProps: GetStaticProps = async context => {
     { orderings: '[my.post.date desc]' }
   )
 
+  const images: string[] = posts.results.map(result => {
+    const colorArray = result.data.body.filter(types => {
+      if (types.slice_type === 'color_theme') {
+        return true
+      } else {
+        return false
+      }
+    })
+    return colorArray[0].items[0].main_image.url
+  })
+
+  const colors: string[] = posts.results.map(result => {
+    const colorArray = result.data.body.filter(types => {
+      if (types.slice_type === 'color_theme') {
+        return true
+      } else {
+        return false
+      }
+    })
+
+    return colorArray[0].items[0].main_color
+  })
+
   return {
     props: {
-      posts
+      posts,
+      images,
+      colors
     }
   }
 }
 
-const Home: React.FC<PropTypes> = ({ posts }) => {
+const Home: React.FC<PropTypes> = ({ posts, images, colors }) => {
   console.log(posts)
 
+  const [selectedColor, setSelectedColor] = useState('#f28705')
+  const [selectedImage, setSelectedImage] = useState(2)
+
   useEffect(() => {
-    const card: any = document.querySelector('.imageContainerCard')
-    const container = document.querySelector('.leftSideClass')
-    const spanClass: any = document.querySelector('.spanClass')
+    listeners()
+  }, [])
 
-    const first: any = document.querySelector('.first')
-    const second: any = document.querySelector('.second')
-    const third: any = document.querySelector('.third')
-
-    const glasses: any = document.querySelector('.glasses')
-
-    container.addEventListener('mousemove', (e: any) => {
-      const xAxis = (window.innerWidth / 2.6 - e.pageX) / 40
-      const yAxis = (window.innerHeight / 2 - e.pageY / 1.8) / 40
-
-      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
-
-      glasses.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateZ(50px)`
-    })
-
-    container.addEventListener('mouseover', e => {
-      spanClass.style.transform = 'translate3d(70%, -50%, 100px)'
-
-      first.style.backdropFilter = 'none'
-      second.style.backdropFilter = 'none'
-      third.style.backdropFilter = 'none'
-
-      first.style.borderRadius = '2rem'
-      second.style.borderRadius = '2rem'
-      third.style.borderRadius = '2rem'
-
-      first.style.border = '1px solid transparent'
-      second.style.border = '1px solid transparent'
-      third.style.border = '1px solid transparent'
-    })
-
-    container.addEventListener('mouseleave', (e: any) => {
-      card.style.transform = 'rotateY(0deg) rotateX(0deg)'
-      glasses.style.transform = 'rotateY(0deg) rotateX(0deg)'
-
-      first.style.backdropFilter = 'blur(5px)'
-      second.style.backdropFilter = 'blur(5px)'
-      third.style.backdropFilter = 'blur(5px)'
-
-      spanClass.style.transform = 'translate3d(50%, -50%, 0px)'
-
-      first.style.borderRadius = '2rem 0rem 0rem 2rem'
-      second.style.borderRadius = '0rem'
-      third.style.borderRadius = '0rem 2rem 2rem 0rem'
-
-      first.style.border = 'none'
-      second.style.border = 'none'
-      third.style.border = 'none'
-    })
+  const handleMouseOverTrack = useCallback((color: string, image: number) => {
+    setSelectedColor(color)
+    setSelectedImage(image)
   }, [])
 
   return (
-    <Container>
+    <Container backgroundColor={selectedColor}>
       <Head>
         <title>by hon.</title>
       </Head>
@@ -102,7 +90,7 @@ const Home: React.FC<PropTypes> = ({ posts }) => {
         <p>written by hon.</p>
       </header>
       <div className="main">
-        <LeftSide className="leftSideClass">
+        <LeftSide className="leftSide" color={selectedColor}>
           <nav className="navBar">
             <ul>
               <li>About</li>
@@ -110,80 +98,53 @@ const Home: React.FC<PropTypes> = ({ posts }) => {
               <li>Contact</li>
             </ul>
           </nav>
-          <ImageContainer className="imageContainerCard">
-            <img src="https://images.prismic.io/songs/96185bfd-03c5-4ff4-b7e5-359e5878d93d_pexels-ian-beckley-2440061.jpg?auto=compress,format" />
+          <ImageContainer className="imageCard">
+            {images.map((image, index) => {
+              return (
+                <StyledImage
+                  src={image}
+                  key={index}
+                  style={
+                    selectedImage === index ? { opacity: 1 } : { opacity: 0 }
+                  }
+                  className={`image${index}`}
+                />
+              )
+            })}
           </ImageContainer>
           <div className="glasses">
-            <Glass className="first"></Glass>
-            <Glass className="second"></Glass>
-            <Glass className="third"></Glass>
+            <Glass className="firstGlass"></Glass>
+            <Glass className="secondGlass"></Glass>
+            <Glass className="thirdGlass"></Glass>
           </div>
-          <span className="spanClass">
+          <span className="mainTitle">
             <h1 className="songs">Songs</h1>
             <h4 className="byHon">by hon.</h4>
           </span>
         </LeftSide>
         <RightSide>
-          <div className="track">
-            <div className="upper">
-              <h4>Wake Up</h4>
-              <Link href="./song/Wake-Up">
-                <FiChevronsRight size={40} />
-              </Link>
-            </div>
-            <div className="Divider"></div>
-            <div className="downer">
-              <p className="date">20 fev 2021</p>
-            </div>
-          </div>
-          <div className="track">
-            <div className="upper">
-              <h4>Wake Up</h4>
-              <Link href="./song/Wake-Up">
-                <FiChevronsRight size={40} />
-              </Link>
-            </div>
-            <div className="Divider"></div>
-            <div className="downer">
-              <p className="date">20 fev 2021</p>
-            </div>
-          </div>
-          <div className="track">
-            <div className="upper">
-              <h4>Wake Up</h4>
-              <Link href="./song/Wake-Up">
-                <FiChevronsRight size={40} />
-              </Link>
-            </div>
-            <div className="Divider"></div>
-            <div className="downer">
-              <p className="date">20 fev 2021</p>
-            </div>
-          </div>
-          <div className="track">
-            <div className="upper">
-              <h4>Wake Up</h4>
-              <Link href="./song/Wake-Up">
-                <FiChevronsRight size={40} />
-              </Link>
-            </div>
-            <div className="Divider"></div>
-            <div className="downer">
-              <p className="date">20 fev 2021</p>
-            </div>
-          </div>
-          <div className="track">
-            <div className="upper">
-              <h4>Wake Up</h4>
-              <Link href="./song/Wake-Up">
-                <FiChevronsRight size={40} />
-              </Link>
-            </div>
-            <div className="Divider"></div>
-            <div className="downer">
-              <p className="date">20 fev 2021</p>
-            </div>
-          </div>
+          {posts.results.map((result, index) => {
+            return (
+              <div
+                className={`track${index} track`}
+                key={index}
+                onMouseOver={() => handleMouseOverTrack(colors[index], index)}
+              >
+                <div className="upper">
+                  <SongTitle color={selectedColor}>
+                    {result.data.song_title[0].text}
+                  </SongTitle>
+                  <Link href={`./song/${result.slugs[0]}`}>
+                    <FiChevronsRight size={40} />
+                  </Link>
+                </div>
+                <div className="divider"></div>
+                <div className="downer">
+                  <p className="date">{result.data.date}</p>
+                </div>
+              </div>
+            )
+          })}
         </RightSide>
       </div>
       <footer>
