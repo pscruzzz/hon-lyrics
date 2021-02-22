@@ -18,7 +18,7 @@ export default function listeners(): void {
   })
 
   leftSide.addEventListener('mouseover', () => {
-    mainTitle.style.transform = 'translate3d(60%, -50%, 100px)'
+    mainTitle.style.transform = 'translate3d(70%, -50%, 100px)'
 
     firstGlass.style.backdropFilter = 'none'
     secondGlass.style.backdropFilter = 'none'

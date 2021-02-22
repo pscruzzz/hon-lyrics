@@ -32,7 +32,7 @@ export default createGlobalStyle`
     perspective: 1000px;
 
     h1 {
-      font-size: 6.6rem;
+      font-size: 5.5rem;
     }
 
     h2 {
@@ -44,7 +44,7 @@ export default createGlobalStyle`
     }
 
     h4 {
-      font-size: 3.3rem;
+      font-size: 2.5rem;
     }
 
     p {
