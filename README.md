@@ -15,3 +15,10 @@ This is a lyrics website where I'll eventually post all my own lyrics.
 * [Hosted in Vercel](vercel.com)
 
 ## Currently a work in progress
+
+## Contact
+
+* Email: pscruzzz@outlook.com
+* Linkedin: https://www.linkedin.com/in/pedrosantoscruz/
+* Project Link: [https://hon-lyrics.vercel.app/](https://hon-lyrics.vercel.app/)
+* Figma Link: [https://www.figma.com/file/zlj46gyFCsmiJ7R7jwhgIp/Lyrics?node-id=0%3A1](https://www.figma.com/file/zlj46gyFCsmiJ7R7jwhgIp/Lyrics?node-id=0%3A1)
