@@ -62,7 +62,8 @@ export const getStaticProps: GetStaticProps = async context => {
       posts,
       images,
       colors
-    }
+    },
+    revalidate: 10
   }
 }
 
