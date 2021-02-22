@@ -14,7 +14,7 @@ export default function listeners(): void {
     const yAxis = (window.innerHeight / 3 - e.pageY / 3) / 50
 
     imageCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
-    glasses.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateZ(50px)`
+    glasses.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateZ(50px) translatex(0.6vw)`
   })
 
   leftSide.addEventListener('mouseover', () => {
