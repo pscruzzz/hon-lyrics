@@ -131,6 +131,7 @@ const Home: React.FC<PropTypes> = ({ posts, images, colors }) => {
                 key={index}
                 onMouseOver={() => handleMouseOverTrack(colors[index], index)}
               >
+                <div className="backgroundTrack"></div>
                 <div className="upper">
                   <SongTitle color={selectedColor}>
                     {result.data.song_title[0].text}

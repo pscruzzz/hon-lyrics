@@ -207,20 +207,32 @@ export const RightSide = styled.div`
     align-items: center;
     width: 75%;
     padding: 2%;
-    border-radius: 1rem;
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.1),
-      rgba(255, 255, 255, 0.2)
-    );
+    position: relative;
 
-    -webkit-transition: background-position 1s ease-out;
-    -moz-transition: background-position 1s ease-out;
-    -o-transition: background-position 1s ease-out;
-    transition: background-position 1s ease-out;
+    .backgroundTrack {
+      border-radius: 1rem;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0%;
+      left: 0%;
 
-    &:hover {
-      background-position: 200px;
+      opacity: 0;
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.2)
+      );
+
+      -webkit-transition: background-position 0.5s ease-in;
+      -moz-transition: background-position 0.5s ease-in;
+      -o-transition: background-position 0.5s ease-in;
+      transition: background-position 0.5s ease-in;
+      transition: opacity 0.5s ease-in;
+      &:hover {
+        background-position: 200px;
+        opacity: 1;
+      }
     }
 
     .upper {
