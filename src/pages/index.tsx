@@ -87,9 +87,6 @@ const Home: React.FC<PropTypes> = ({ posts, images, colors }) => {
       <Head>
         <title>by hon.</title>
       </Head>
-      <header>
-        <p>written by hon.</p>
-      </header>
       <div className="main">
         <LeftSide className="leftSide" color={selectedColor}>
           <nav className="navBar">
@@ -151,6 +148,7 @@ const Home: React.FC<PropTypes> = ({ posts, images, colors }) => {
       </div>
       <footer>
         <p>developed by Pedro Cruz</p>
+        <p>written by hon.</p>
       </footer>
     </Container>
   )

@@ -30,22 +30,35 @@ export const Container = styled.div<IContainerProps>`
     justify-content: space-evenly;
     width: 90%;
     max-width: 1440px;
+    max-height: 90vh;
   }
 
-  header,
   footer {
     font-weight: 300;
-    ${props =>
-      css`
-        background: -webkit-linear-gradient(
-          right,
-          #f2c3a7,
-          ${lighten(0.3, props.backgroundColor)} 70%
-        );
-      `}
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1440px;
+    max-height: 10vh;
+
+    p {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      ${props =>
+        css`
+          background: -webkit-linear-gradient(
+            right,
+            #f2c3a7,
+            ${lighten(0.3, props.backgroundColor)} 70%
+          );
+        `}
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 `
 
