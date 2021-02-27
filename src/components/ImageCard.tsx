@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-
-import listeners from '../hooks/HomeListeners'
+import React from 'react'
 
 import {
   ImageContainer,
@@ -15,9 +13,6 @@ interface ImageCardProps {
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({ images, selectedImage }) => {
-  useEffect(() => {
-    listeners()
-  }, [])
   return (
     <>
       <ImageContainer className="imageCard">

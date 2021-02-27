@@ -3,15 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
 
-import {
-  Container,
-  LeftSide,
-  ImageContainer,
-  Glass,
-  RightSide,
-  SongTitle,
-  StyledImage
-} from '../styles/pages/Home'
+import { Container, LeftSide, RightSide, SongTitle } from '../styles/pages/Home'
 
 import Prismic from 'prismic-javascript'
 // import { RichText } from 'prismic-reactjs'
@@ -69,10 +61,14 @@ export const getStaticProps: GetStaticProps = async context => {
 }
 
 const Home: React.FC<PropTypes> = ({ posts, images, colors }) => {
-  console.log(posts)
+  // console.log(posts)
 
   const [selectedColor, setSelectedColor] = useState('#f28705')
   const [selectedImage, setSelectedImage] = useState(2)
+
+  useEffect(() => {
+    listeners()
+  }, [])
 
   const handleMouseOverTrack = useCallback((color: string, image: number) => {
     setSelectedColor(color)
