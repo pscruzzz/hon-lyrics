@@ -237,11 +237,11 @@ export const RightSide = styled.div`
         rgba(255, 255, 255, 0.2)
       );
 
-      -webkit-transition: background-position 0.5s ease-in;
-      -moz-transition: background-position 0.5s ease-in;
-      -o-transition: background-position 0.5s ease-in;
-      transition: background-position 0.5s ease-in;
-      transition: opacity 0.5s ease-in;
+      -webkit-transition: background-position 0.2s ease-in;
+      -moz-transition: background-position 0.2s ease-in;
+      -o-transition: background-position 0.2s ease-in;
+      transition: background-position 0.2s ease-in;
+      transition: opacity 0.2s ease-in;
       &:hover {
         background-position: 200px;
         opacity: 1;

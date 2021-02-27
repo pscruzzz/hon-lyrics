@@ -21,6 +21,7 @@ import ApiSearchResponse from 'prismic-javascript/types/ApiSearchResponse'
 import { FiChevronsRight } from 'react-icons/fi'
 
 import listeners from '../hooks/HomeListeners'
+import ImageCard from '../components/ImageCard'
 
 interface PropTypes {
   posts: ApiSearchResponse
@@ -73,10 +74,6 @@ const Home: React.FC<PropTypes> = ({ posts, images, colors }) => {
   const [selectedColor, setSelectedColor] = useState('#f28705')
   const [selectedImage, setSelectedImage] = useState(2)
 
-  useEffect(() => {
-    listeners()
-  }, [])
-
   const handleMouseOverTrack = useCallback((color: string, image: number) => {
     setSelectedColor(color)
     setSelectedImage(image)
@@ -96,29 +93,7 @@ const Home: React.FC<PropTypes> = ({ posts, images, colors }) => {
               <li>Contact</li>
             </ul>
           </nav>
-          <ImageContainer className="imageCard">
-            {images.map((image, index) => {
-              return (
-                <StyledImage
-                  src={image}
-                  key={index}
-                  style={
-                    selectedImage === index ? { opacity: 1 } : { opacity: 0 }
-                  }
-                  className={`image${index}`}
-                />
-              )
-            })}
-          </ImageContainer>
-          <div className="glasses">
-            <Glass className="firstGlass"></Glass>
-            <Glass className="secondGlass"></Glass>
-            <Glass className="thirdGlass"></Glass>
-          </div>
-          <span className="mainTitle">
-            <h1 className="songs">Songs</h1>
-            <h4 className="byHon">by hon.</h4>
-          </span>
+          <ImageCard images={images} selectedImage={selectedImage} />
         </LeftSide>
         <RightSide>
           {posts.results.map((result, index) => {
