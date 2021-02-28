@@ -14,6 +14,7 @@ import { FiChevronsRight } from 'react-icons/fi'
 
 import listeners from '../hooks/HomeListeners'
 import ImageCard from '../components/ImageCard'
+import { lighten, shade } from 'polished'
 
 interface PropTypes {
   posts: ApiSearchResponse
@@ -91,28 +92,47 @@ const Home: React.FC<PropTypes> = ({ posts, images, colors }) => {
           </nav>
           <ImageCard images={images} selectedImage={selectedImage} />
         </LeftSide>
-        <RightSide>
+        <RightSide color={selectedColor}>
           {posts.results.map((result, index) => {
             return (
-              <div
-                className={`track${index} track`}
-                key={index}
-                onMouseOver={() => handleMouseOverTrack(colors[index], index)}
-              >
-                <div className="backgroundTrack"></div>
-                <div className="upper">
-                  <SongTitle color={selectedColor}>
-                    {result.data.song_title[0].text}
-                  </SongTitle>
-                  <Link href={`./song/${result.slugs[0]}`}>
-                    <FiChevronsRight size={40} />
-                  </Link>
+              <Link href={`./song/${result.slugs[0]}`} key={index}>
+                <div
+                  className={`track${index} track`}
+                  onMouseOver={() => handleMouseOverTrack(colors[index], index)}
+                >
+                  <div className="backgroundTrack"></div>
+                  <div className="upper">
+                    <SongTitle color={selectedColor}>
+                      {result.data.song_title[0].text}
+                    </SongTitle>
+                    <svg width="0" height="0">
+                      <linearGradient
+                        id="gradient"
+                        x1="100%"
+                        y1="100%"
+                        x2="100%"
+                        y2="0%"
+                      >
+                        <stop stopColor={selectedColor} offset="0%" />
+                        <stop
+                          stopColor={lighten(0.5, selectedColor)}
+                          offset="100%"
+                        />
+                      </linearGradient>
+                    </svg>
+
+                    <FiChevronsRight
+                      size={40}
+                      style={{ stroke: 'url(#gradient)' }}
+                    />
+                  </div>
+
+                  <div className="divider"></div>
+                  <div className="downer">
+                    <p className="date">{result.data.date}</p>
+                  </div>
                 </div>
-                <div className="divider"></div>
-                <div className="downer">
-                  <p className="date">{result.data.date}</p>
-                </div>
-              </div>
+              </Link>
             )
           })}
         </RightSide>

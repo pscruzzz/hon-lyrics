@@ -201,7 +201,11 @@ export const Glass = styled.div`
   box-shadow: 5px 5px 20px rgba(46, 54, 68, 0.05);
 `
 
-export const RightSide = styled.div`
+interface IRightSideProps {
+  color: string
+}
+
+export const RightSide = styled.div<IRightSideProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -258,7 +262,17 @@ export const RightSide = styled.div`
     .divider {
       width: 100%;
       height: 1px;
-      background: #fff;
+
+      ${props =>
+        css`
+          background: -webkit-linear-gradient(
+            right,
+            ${lighten(0.3, props.color)} 20%,
+            ${shade(0.5, props.color)}
+          );
+        `}/* background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; */
     }
 
     .downer {
@@ -266,6 +280,21 @@ export const RightSide = styled.div`
       justify-content: flex-end;
       align-items: center;
       width: 100%;
+
+      p {
+        ${props =>
+          css`
+            background: -webkit-linear-gradient(
+              right,
+              #f2c3a7,
+              ${props.color} 90%
+            );
+          `}
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all 0.5s linear;
+      }
     }
   }
 `
